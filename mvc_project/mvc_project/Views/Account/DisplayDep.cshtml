@@ -1,0 +1,76 @@
+﻿@model  List<mvc_project.Models.Attendance> 
+@{
+    ViewBag.Title = "DisplayDep";
+    string OnTime ="No" ;
+    string Late = "No";
+    string Absent = "No";
+}
+
+<h2>DisplayDep</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Student</th>
+            <th scope="col">ONTime</th>
+            <th scope="col">Late</th>
+            <th scope="col">Absent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (int.Parse(item.TimeAttend) <= 9)
+            {
+                OnTime = "Yes";
+
+            }
+            else
+            {
+                if (int.Parse(item.TimeAttend) > 9)
+                {
+                    Late = "Yes";
+
+                }
+                else
+                {
+                    Absent = "Yes";
+
+
+                }
+            }
+        <tr>
+            <td> @item.User.User_Name</td>
+            <td> @OnTime</td>
+            <td> @Late</td>
+            <td> @Absent</td>
+            @*<td>
+                 @if (int.Parse(item.TimeAttend) <= 9)
+                 {
+                     @OnTime = "Yes";
+
+                 }
+                 @OnTime
+             </td>
+             <td>
+                 @if (int.Parse(item.TimeAttend) > 9)
+                 {
+                     @Late = "Yes";
+
+                 }
+             </td>
+             @Late
+             <td>
+                 @if (item.TimeAttend == "NULL")
+                 {
+                     @Absent = "Yes";
+
+                 }
+            </td>
+             @Absent*@
+        </tr>
+            OnTime = "No";
+            Late = "No";
+            Absent = "No";
+        }
+    </tbody>
+</table>

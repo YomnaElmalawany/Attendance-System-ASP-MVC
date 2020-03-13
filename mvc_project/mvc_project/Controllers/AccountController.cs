@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -11,13 +13,13 @@ using Microsoft.Owin.Security;
 using mvc_project.Models;
 
 namespace mvc_project.Controllers
-{
+{  /*[Route("SC/{action}")]*/
     [Authorize]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        ApplicationDbContext db = new ApplicationDbContext();
         public AccountController()
         {
         }
@@ -403,6 +405,39 @@ namespace mvc_project.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
+        // [Route("DSSD")]
+        public ActionResult DisplayStudentsStatusInDay()
+        {    
+            List<Department> department = db.Department.ToList<Department>();
+            ViewBag.department = new SelectList(department,"DeptId","DeptName");
+            return View();
+        }
+        //[HttpPost]
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult DisplayDep(string department, string Day)
+        {
+            // return Content(department + Day);
+            int DeptID = int.Parse(department);
+            List<Attendance> stds = db.Attendance.Include(s => s.User).Where(a => a.AttDate == Day&&a.User.DeptId== DeptID).ToList<Attendance>();
+            //List<ApplicationUser> users = new List<ApplicationUser>();
+            //foreach (var item in stds)
+            //{         
+            //    users.Add(item.User);
+            //}
+            //List<ApplicationUser> usersDept = new List<ApplicationUser>();
+            
+            //foreach (var item in users)
+            //{
+            //    if (item.DeptId == DeptID)
+            //    {
+            //        usersDept.Add(item);
+            //    }
+            //}
+            
+            return View(stds);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
