@@ -1,9 +1,11 @@
 ﻿@model  List<mvc_project.Models.Attendance> 
 @{
     ViewBag.Title = "DisplayDep";
-    string OnTime ="No" ;
-    string Late = "No";
-    string Absent = "No";
+    //string OnTime ="No" ;
+    //string Late = "No";
+    //string Absent = "No";
+    string Status = "";
+
 }
 
 <h2>DisplayDep</h2>
@@ -11,9 +13,12 @@
     <thead>
         <tr>
             <th scope="col">Student</th>
-            <th scope="col">ONTime</th>
+            <th>ArrivalTime</th>
+            <th>DepartureTime</th>
+            @*<th scope="col">ONTime</th>
             <th scope="col">Late</th>
-            <th scope="col">Absent</th>
+            <th scope="col">Absent</th>*@
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -21,56 +26,61 @@
         {
             if (int.Parse(item.TimeAttend) <= 9)
             {
-                OnTime = "Yes";
-
+                //OnTime = "Yes";
+                Status = "OnTime";
             }
             else
             {
                 if (int.Parse(item.TimeAttend) > 9)
                 {
-                    Late = "Yes";
-
+                    //Late = "Yes";
+                    Status = "Late";
                 }
                 else
                 {
-                    Absent = "Yes";
-
+                    //Absent = "Yes";
+                    Status = "Absent";
 
                 }
             }
         <tr>
             <td> @item.User.User_Name</td>
-            <td> @OnTime</td>
+            <td> @item.TimeAttend</td>
+            <td> @item.TimeLeft</td>
+            @*<td> @OnTime</td>
             <td> @Late</td>
-            <td> @Absent</td>
+            <td> @Absent</td>*@
+            <td> @Status</td>
+
             @*<td>
-                 @if (int.Parse(item.TimeAttend) <= 9)
-                 {
-                     @OnTime = "Yes";
+             @if (int.Parse(item.TimeAttend) <= 9)
+             {
+                 @OnTime = "Yes";
 
-                 }
-                 @OnTime
-             </td>
-             <td>
-                 @if (int.Parse(item.TimeAttend) > 9)
-                 {
-                     @Late = "Yes";
+             }
+             @OnTime
+         </td>
+         <td>
+             @if (int.Parse(item.TimeAttend) > 9)
+             {
+                 @Late = "Yes";
 
-                 }
-             </td>
-             @Late
-             <td>
-                 @if (item.TimeAttend == "NULL")
-                 {
-                     @Absent = "Yes";
+             }
+         </td>
+         @Late
+         <td>
+             @if (item.TimeAttend == "NULL")
+             {
+                 @Absent = "Yes";
 
-                 }
-            </td>
-             @Absent*@
+             }
+        </td>
+         @Absent*@
         </tr>
-            OnTime = "No";
-            Late = "No";
-            Absent = "No";
+            //OnTime = "No";
+            //Late = "No";
+            //Absent = "No";
+            Status = "";
         }
     </tbody>
 </table>
