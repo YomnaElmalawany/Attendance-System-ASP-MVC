@@ -165,7 +165,45 @@ namespace mvc_project.Controllers
             //return Content("record inserted");
             return RedirectToAction("Index", "Home");
         }
-#endregion
+        #endregion
+
+        #region Adminview2
+
+        [Authorize(Roles = "Admin")]
+        // [Route("DSSD")]
+        public ActionResult DisplayStudentsStatusInDay()
+        {
+            List<Department> department = db.Department.ToList<Department>();
+            ViewBag.department = new SelectList(department, "DeptId", "DeptName");
+            return View();
+        }
+        //[HttpPost]
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult DisplayDep(string department, string Day)
+        {
+            // return Content(department + Day);
+            int DeptID = int.Parse(department);
+            List<Attendance> stds = db.Attendance.Include(s => s.User).Where(a => a.AttDate == Day && a.User.DeptId == DeptID).ToList<Attendance>();
+            //List<ApplicationUser> users = new List<ApplicationUser>();
+            //foreach (var item in stds)
+            //{         
+            //    users.Add(item.User);
+            //}
+            //List<ApplicationUser> usersDept = new List<ApplicationUser>();
+
+            //foreach (var item in users)
+            //{
+            //    if (item.DeptId == DeptID)
+            //    {
+            //        usersDept.Add(item);
+            //    }
+            //}
+
+            return View(stds);
+        }
+        #endregion
+
 
         public ApplicationSignInManager SignInManager
         {
