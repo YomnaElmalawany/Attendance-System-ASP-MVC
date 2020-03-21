@@ -27,12 +27,11 @@
                     @if (User.IsInRole("Admin"))
                     {
                         
-                    <li>@Html.ActionLink("Register Security", "Register", "Account")</li>
-                    <li>@Html.ActionLink("Departments", "Create", "Departments")</li>
-                    <li>@Html.ActionLink("Departments", "Create", "Departments")</li>
-                    <li>Date: @DateTime.Now</li>
-                    <li>@Html.ActionLink("DisplayStudentsStatusInDay", "DisplayStudentsStatusInDay", "Account")</li>
-                }
+                        <li>@Html.ActionLink("Register Security", "Register", "Account")</li>
+                        <li>@Html.ActionLink("Departments", "Create", "Departments")</li>
+                        <li class="text-muted">Date: @DateTime.Now</li>
+                        @*<li>@Html.ActionLink("DisplayStudentsStatusInDay", "DisplayStudentsStatusInDay", "Account")</li>*@
+                    }
                     @if (User.IsInRole("Student"))
                     {
                         <li>@Html.ActionLink("Profile", "profile", "Account")</li>
