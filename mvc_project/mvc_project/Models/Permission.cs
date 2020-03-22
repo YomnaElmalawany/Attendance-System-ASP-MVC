@@ -14,7 +14,7 @@ namespace mvc_project.Models
         [ForeignKey("User")]
         public string StdId { get; set; }
         public ApplicationUser User { get; set; }
-        public string PermDate { get; set; }
+        public DateTime PermDate { get; set; }
         public string Note { get; set; }
         public string Status { get; set; }
     }

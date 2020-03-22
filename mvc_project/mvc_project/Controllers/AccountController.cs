@@ -34,7 +34,7 @@ namespace mvc_project.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> createRoles()
+        public async Task<ActionResult> CreateRoles()
         {
             RoleManager<IdentityRole> rm = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
             IdentityRole r1 = new IdentityRole("Admin");
@@ -71,7 +71,7 @@ namespace mvc_project.Controllers
                 {
                     std = db.Users.FirstOrDefault(s => s.Id == item.StdId && s.DeptId == id);
                     data.Add(new AdminViewModels() { UserID = std.UserId, UserName = std.UserName,
-                        permissionDate = item.PermDate, permissionNote = item.Note, permissionID = item.PermId });
+                        permissionDate = item.PermDate.ToString(), permissionNote = item.Note, permissionID = item.PermId });
                 }
             }
             //List<ApplicationUser> stds = new List<ApplicationUser>();
@@ -83,7 +83,7 @@ namespace mvc_project.Controllers
             return PartialView(data);
         }
         
-        public ActionResult permissionResponse(int id)
+        public ActionResult PermissionResponse(int id)
         {
             var perms = db.Permission.Where(p => p.PermId == id);
             foreach (var item in perms)
@@ -127,7 +127,7 @@ namespace mvc_project.Controllers
         //to read it in multiple scope
         string id;
 
-        public ActionResult view_attend()
+        public ActionResult View_attend()
         {
             List<ApplicationUser> users = db.Users.ToList<ApplicationUser>();
             string name = User.Identity.Name;
@@ -148,7 +148,7 @@ namespace mvc_project.Controllers
         {
             return View();
         }
-        public ActionResult permupdate(string datee, string res)
+        public ActionResult Permupdate(string datee, string res)
         {
             List<ApplicationUser> users = db.Users.ToList<ApplicationUser>();
             string name = User.Identity.Name;
@@ -160,7 +160,7 @@ namespace mvc_project.Controllers
 
                 }
             }
-            db.Permission.Add(new Permission() { StdId = id, PermDate = datee, Note = res, Status = "pending" });
+            db.Permission.Add(new Permission() { StdId = id, PermDate = DateTime.Parse(datee), Note = res, Status = "pending" });
             db.SaveChanges();
             //return Content("record inserted");
             return RedirectToAction("Index", "Home");

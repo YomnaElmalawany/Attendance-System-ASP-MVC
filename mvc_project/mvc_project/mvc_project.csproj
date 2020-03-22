@@ -204,6 +204,10 @@
     <Compile Include="Migrations\202003121804455_v2_removeUser_NameCol.Designer.cs">
       <DependentUpon>202003121804455_v2_removeUser_NameCol.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003222041379_v3_String_to_DateTime_PermissionsTable.cs" />
+    <Compile Include="Migrations\202003222041379_v3_String_to_DateTime_PermissionsTable.Designer.cs">
+      <DependentUpon>202003222041379_v3_String_to_DateTime_PermissionsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -313,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003121804455_v2_removeUser_NameCol.resx">
       <DependentUpon>202003121804455_v2_removeUser_NameCol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003222041379_v3_String_to_DateTime_PermissionsTable.resx">
+      <DependentUpon>202003222041379_v3_String_to_DateTime_PermissionsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
