@@ -296,3 +296,4 @@ C:\Users\Yomna\OneDrive\Desktop\MVC-project-backup-3\Attendance-System-ASP-MVC\m
 C:\Users\Yomna\OneDrive\Desktop\MVC-project-backup-3\Attendance-System-ASP-MVC\mvc_project\mvc_project\obj\Debug\mvc_project.dll
 C:\Users\Yomna\OneDrive\Desktop\MVC-project-backup-3\Attendance-System-ASP-MVC\mvc_project\mvc_project\obj\Debug\mvc_project.pdb
 C:\Users\Yomna\OneDrive\Desktop\MVC-project-backup-3\Attendance-System-ASP-MVC\mvc_project\mvc_project\obj\Debug\mvc_project.Migrations.v3_String_to_DateTime_PermissionsTable.resources
+C:\Users\Yomna\OneDrive\Desktop\MVC-project-backup-3\Attendance-System-ASP-MVC\mvc_project\mvc_project\obj\Debug\mvc_project.Migrations.V4_addingColumnsinPermissionsAndAttendance.resources

@@ -12,6 +12,7 @@ using mvc_project.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Collections.Generic;
 using System.Data.Entity;
+using mvc_project.ViewModels;
 
 namespace mvc_project.Controllers
 {
@@ -180,7 +181,7 @@ namespace mvc_project.Controllers
         //[HttpPost]
 
         [Authorize(Roles = "Admin")]
-        public ActionResult DisplayDep(string department, string Day)
+        public ActionResult DisplayDep(string department, DateTime Day)
         {
             // return Content(department + Day);
             int DeptID = int.Parse(department);
@@ -204,6 +205,79 @@ namespace mvc_project.Controllers
         }
         #endregion
 
+        #region Admin1
+        [Authorize(Roles = "Admin")]
+        public ActionResult ShowFromTo()
+        {
+
+            var departments = db.Department.ToList();
+
+            List<Attendance> attends = db.Attendance.Include(a => a.User).ToList();
+
+            //List<AttendInfo> attends =
+            //            (from ep in db.Attendance
+            //             join e in db.Users on ep.StdId equals e.Id
+            //             join t in db.Permission on e.Id equals t.StdId
+            //             select (new AttendInfo
+            //             {
+            //                 Attendances = ep,
+            //                 Permissions = t,
+            //                 Students = e
+            //             })).ToList();
+
+
+            var AttResult = from student in attends group student by student.User.UserName;
+
+            var permission = db.Permission.Include(p => p.User).ToList();
+
+            var PermResult = from student in permission group student by student.User.UserName;
+
+            //// Common Keys between left and right
+            //var r = result.Where(s => result.Select(p => p.Key ).Contains(s.Key)).ToList();
+
+            var viewModel = new StudentAttendanceViewModel
+            {
+                Departments = departments
+                ,
+                Attendances = AttResult
+                ,
+                Permission = PermResult
+
+            };
+
+            return View(viewModel);
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult ShowFromTo(StudentAttendanceViewModel stdAttend)
+        {
+
+            //string validformats =  "MM/dd/yyyy";
+
+            //CultureInfo provider = new CultureInfo("en-US");
+
+            var departments = db.Department.ToList();
+            //need modification to datetime 
+
+            List<Attendance> attends = db.Attendance.Include(a => a.User)
+                .Where(a => a.AttDate >= stdAttend.From && a.AttDate <= stdAttend.To && a.User.DeptId == stdAttend.Student.DeptId).ToList();
+
+            var AttResult = from student in attends group student by student.User.UserName;
+
+            var permission = db.Permission.Include(p => p.User)
+              .Where(p => p.permDateTime >= stdAttend.From && p.permDateTime <= stdAttend.To)
+              .ToList();
+
+            var PermResult = from student in permission group student by student.User.UserName;
+
+            stdAttend.Attendances = AttResult;
+            stdAttend.Departments = departments;
+            stdAttend.Permission = PermResult;
+
+            return View(stdAttend);
+        }
+        #endregion
 
         public ApplicationSignInManager SignInManager
         {

@@ -16,8 +16,31 @@ namespace mvc_project.Models
 
         public ApplicationUser User { get; set; }
 
-        public string AttDate { get; set; }
+        public DateTime AttDate { get; set; }
         public string TimeAttend { get; set; }
         public string TimeLeft { get; set; }
+
+        [NotMapped]
+        public bool Attend
+        {
+            get { return !String.IsNullOrEmpty(TimeAttend) ? true : false; }
+
+            private set { /* needed for EF */ }
+        }
+
+        [NotMapped]
+        public bool OnTime
+        {
+            get { return Attend && (TimeAttend.Replace(" ", String.Empty) == "9") ? true : false; }
+
+            private set { /* needed for EF */ }
+        }
+        [NotMapped]
+        public bool Late
+        {
+            get { return Attend && !OnTime ? true : false; }
+
+            private set { /* needed for EF */ }
+        }
     }
 }

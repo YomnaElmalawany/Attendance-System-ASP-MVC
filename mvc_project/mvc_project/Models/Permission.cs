@@ -17,5 +17,12 @@ namespace mvc_project.Models
         public DateTime PermDate { get; set; }
         public string Note { get; set; }
         public string Status { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime permDateTime
+        {
+            get;
+            private set;
+        }
     }
 }
